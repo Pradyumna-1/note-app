@@ -1,20 +1,41 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
-import SignUp from "./pages/SignUp/SignUp";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./components/Home";
+import Paste from "./components/Paste";
+import ViewPaste from "./components/ViewPaste";
+import Navbar from "./components/Navbar";
 
-const routes = (
-  <Router>
-    <Routes>
-      <Route path="/home" exact element={<Home />} />
-      <Route path="/login" exact element={<Login />} />
-      <Route path="/signup" exact element={<SignUp />} />
-    </Routes>
-  </Router>
-);
-const App = () => {
-  return <div>{routes}</div>;
-};
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <div className="w-full h-full flex flex-col">
+        <Navbar />
+        <Home />
+      </div>
+    ),
+  },
+  {
+    path: "/pastes",
+    element: (
+      <div className="w-full h-full flex flex-col">
+        <Navbar />
+        <Paste />
+      </div>
+    ),
+  },
+  {
+    path: "/pastes/:id",
+    element: (
+      <div className="w-full h-full flex flex-col">
+        <Navbar />
+        <ViewPaste />
+      </div>
+    ),
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
+}
 
 export default App;
